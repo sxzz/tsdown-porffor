@@ -1,0 +1,7 @@
+packages: []
+
+overrides:
+  porffor>oxc-parser: oxc-parser@0.119.0
+
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 604800 # 7 days

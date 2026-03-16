@@ -1,0 +1,59 @@
+{
+  "name": "tsdown-porffor",
+  "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.32.1",
+  "description": "",
+  "author": "Kevin Deng <sxzz@sxzz.moe>",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/sxzz",
+  "homepage": "https://github.com/sxzz/tsdown-porffor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxzz/tsdown-porffor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sxzz/tsdown-porffor/issues"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "lint": "eslint --cache .",
+    "lint:fix": "pnpm run lint --fix",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest",
+    "typecheck": "tsgo --noEmit",
+    "format": "prettier --cache --write .",
+    "release": "bumpp",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@sxzz/eslint-config": "^7.8.3",
+    "@sxzz/prettier-config": "^2.3.1",
+    "@types/node": "^25.5.0",
+    "@typescript/native-preview": "7.0.0-dev.20260316.1",
+    "bumpp": "^11.0.1",
+    "eslint": "^10.0.3",
+    "porffor": "^0.61.12",
+    "prettier": "^3.8.1",
+    "tinyexec": "^1.0.4",
+    "tsdown": "^0.21.3",
+    "tsdown-preset-sxzz": "^0.4.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
+  },
+  "prettier": "@sxzz/prettier-config"
+}
