@@ -5,34 +5,26 @@ import { fileURLToPath } from 'node:url'
 import { x } from 'tinyexec'
 import { lib } from 'tsdown-preset-sxzz'
 
+const cli = path.resolve(
+  fileURLToPath(import.meta.resolve('porffor/package.json')),
+  '../runtime/index.js',
+)
+const outDir = path.resolve(process.cwd(), 'build')
+
 export default lib(
   {},
   {
     hooks: {
       'build:done': async (context) => {
-        const cli = path.resolve(
-          fileURLToPath(import.meta.resolve('porffor/package.json')),
-          '../runtime/index.js',
-        )
-        const outDir = path.resolve(process.cwd(), 'build')
         await mkdir(outDir, { recursive: true })
-        await x(
-          process.execPath,
-          [
-            cli,
-            'native',
-            path.resolve(
-              context.options.outDir,
-              context.chunks.find((c) => !c.fileName.includes('.d'))!.fileName,
-            ),
-            'build/app',
-          ],
-          {
-            nodeOptions: {
-              stdio: 'inherit',
-            },
-          },
+        const distFile = path.resolve(
+          context.options.outDir,
+          context.chunks.find((c) => !c.fileName.includes('.d'))!.fileName,
         )
+
+        await x(process.execPath, [cli, 'native', distFile, 'build/app'], {
+          nodeOptions: { stdio: 'inherit' },
+        })
       },
     },
   },
