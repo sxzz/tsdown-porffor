@@ -4,3 +4,4 @@ function fib(n: number): number {
 }
 console.info(`fib(2) = ${fib(2)}`)
 console.info(`fib(10) = ${fib(10)}`)
+console.info(`performance.now() = ${performance.now()}`)

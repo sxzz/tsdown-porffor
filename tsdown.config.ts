@@ -14,6 +14,10 @@ const outDir = path.resolve(process.cwd(), 'build')
 export default lib(
   {},
   {
+    deps: {
+      alwaysBundle: /./,
+      onlyBundle: false,
+    },
     hooks: {
       'build:done': async (context) => {
         await mkdir(outDir, { recursive: true })
@@ -22,9 +26,16 @@ export default lib(
           context.chunks.find((c) => !c.fileName.includes('.d'))!.fileName,
         )
 
-        await x(process.execPath, [cli, 'native', distFile, 'build/app'], {
-          nodeOptions: { stdio: 'inherit' },
-        })
+        const { exitCode } = await x(
+          process.execPath,
+          [cli, 'native', distFile, 'build/app'],
+          {
+            nodeOptions: { stdio: 'inherit' },
+          },
+        )
+        if (exitCode !== 0) {
+          throw new Error(`Failed to execute porffor: exit code ${exitCode}`)
+        }
       },
     },
   },
